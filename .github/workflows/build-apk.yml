@@ -1,0 +1,63 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: إعداد Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: إعداد Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.4'
+          channel: stable
+          cache: true
+
+      - name: التحقق من الإصدار
+        run: flutter --version
+
+      # توليد هيكل android المطابق لإصدار Flutter بالضبط ثم تطبيق تعديلاتنا فوقه
+      - name: توليد هيكل Android
+        run: flutter create --org com.afaq --project-name afaq_whatsapp --platforms android .
+
+      - name: تطبيق تعديلات Android (الصلاحيات + MainActivity بالكوتلن)
+        run: cp -rv android_overlay/. android/
+
+      - name: تثبيت الاعتماديات
+        run: flutter pub get
+
+      - name: تحليل الكود
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings || true
+
+      - name: بناء APK
+        run: flutter build apk --release --split-per-abi
+
+      - name: رفع ملفات APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: afaq-whatsapp-apk
+          path: |
+            build/app/outputs/flutter-apk/*.apk
+          if-no-files-found: error
+
+      - name: إصدار تلقائي عند وسم v*
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/app/outputs/flutter-apk/*.apk
+          generate_release_notes: true

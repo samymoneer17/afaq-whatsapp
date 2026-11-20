@@ -1,0 +1,16 @@
+[Unit]
+Description=Afaq WhatsApp Backend (FastAPI + neonize)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/html/whatsapp-web-app
+ExecStart=/var/www/html/whatsapp-web-app/venv/bin/python main.py
+Restart=always
+RestartSec=5
+Environment=WA_PORT=8000
+
+[Install]
+WantedBy=multi-user.target
