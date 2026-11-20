@@ -11,7 +11,8 @@ import '../core/strings.dart';
 import '../ui/common.dart';
 
 /// العتبة الافتراضية لعنوان الخادم — قابلة للتعديل من شاشة الربط نفسها
-const String kDefaultServerUrl = 'http://169.58.232.88:8000';
+/// اكتب عنوان خادمك في شاشة الربط (مثال: http://SERVER_IP:8000)
+const String kDefaultServerUrl = '';
 
 class PairScreen extends StatefulWidget {
   const PairScreen({super.key});

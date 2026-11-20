@@ -17,7 +17,7 @@ class ApiException implements Exception {
 }
 
 class ApiClient {
-  String base; // مثال: http://169.58.232.88:8000
+  String base; // مثال: http://SERVER_IP:8000
   final http.Client _http = http.Client();
 
   ApiClient(this.base);
