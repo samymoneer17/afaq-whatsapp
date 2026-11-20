@@ -309,20 +309,20 @@ class ChatSnippet extends StatelessWidget {
     final lm = chat.lastMessage.toLowerCase();
     Widget? icon;
     if (lm.startsWith('[صورة]') || lm.startsWith('[image]'))
-      icon = _mi(Icons.photo_outlined, '[صورة] ');
+      icon = _mi(context, Icons.photo_outlined, '[صورة] ');
     if (lm.startsWith('[فيديو]') || lm.startsWith('[video]'))
-      icon = _mi(Icons.videocam_outlined, '[فيديو] ');
+      icon = _mi(context, Icons.videocam_outlined, '[فيديو] ');
     if (lm.startsWith('[صوت]') || lm.startsWith('[audio]'))
-      icon = _mi(Icons.mic_none_outlined, '[صوت] ');
+      icon = _mi(context, Icons.mic_none_outlined, '[صوت] ');
     if (lm.startsWith('[مستند]') || lm.startsWith('[document]'))
-      icon = _mi(Icons.description_outlined, '[مستند] ');
+      icon = _mi(context, Icons.description_outlined, '[مستند] ');
     if (icon != null) {
       return Row(children: [icon, text()]);
     }
     return Row(children: [text()]);
   }
 
-  Widget _mi(IconData i, String strip) {
+  Widget _mi(BuildContext context, IconData i, String strip) {
     final c = WaColors.of(context);
     return Padding(
       padding: const EdgeInsetsDirectional.only(end: 4),

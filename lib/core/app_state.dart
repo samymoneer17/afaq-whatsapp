@@ -140,7 +140,7 @@ class AppState extends ChangeNotifier {
             final raw = e.data['reactions'];
             if (raw is Map)
               raw.forEach((k, v) => reactions[k.toString()] = v.toString());
-            _messages[chat][i] = Message(
+            list[i] = Message(
               id: list[i].id,
               chat: list[i].chat,
               sender: list[i].sender,

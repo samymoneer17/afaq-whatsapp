@@ -27,6 +27,10 @@ dependencies:
   # عرض رمز QR بصيغة SVG القادمة من الخادم
   flutter_svg: ^2.0.10+1
 
+# record_linux 0.7.x لا يحقّق توقيع startStream في record_platform_interface 1.6 — نثبّت إصداراً متوافقاً
+dependency_overrides:
+  record_linux: 1.3.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

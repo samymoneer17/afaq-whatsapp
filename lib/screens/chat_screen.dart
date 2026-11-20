@@ -1339,6 +1339,7 @@ class _PollContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.watch<S>();
     final poll = m.poll!;
     return Container(
       constraints: const BoxConstraints(maxWidth: 250),

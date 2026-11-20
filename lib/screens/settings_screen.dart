@@ -15,6 +15,9 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  /// سلسلة الترجمة الحالية — متاحة داخل build (المراقبة) وخارجه (القراءة)
+  S get s => context.read<S>();
+
   final _serverCtrl = TextEditingController();
 
   @override
